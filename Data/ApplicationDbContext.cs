@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Category> Categories { get; set; }
     public DbSet<Tag> Tags { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<ArticleTag> ArticleTags { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -40,6 +41,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 .IsRequired();
             
             entity.Property(e => e.Summary)
+                .HasMaxLength(500);
+            
+            entity.Property(e => e.Excerpt)
                 .HasMaxLength(500);
             
             entity.Property(e => e.FeaturedImageUrl)
@@ -68,15 +72,27 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 .HasForeignKey(e => e.AuthorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasMany(e => e.Tags)
-                .WithMany(t => t.Articles)
-                .UsingEntity(j => j.ToTable("ArticleTags"));
-
             // Indexes
             entity.HasIndex(e => e.CategoryId);
             entity.HasIndex(e => e.AuthorId);
             entity.HasIndex(e => e.PublishedAt);
             entity.HasIndex(e => new { e.IsPublished, e.IsDeleted });
+        });
+
+        // ArticleTag configuration (Many-to-Many)
+        modelBuilder.Entity<ArticleTag>(entity =>
+        {
+            entity.HasKey(at => new { at.ArticleId, at.TagId });
+
+            entity.HasOne(at => at.Article)
+                .WithMany(a => a.ArticleTags)
+                .HasForeignKey(at => at.ArticleId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(at => at.Tag)
+                .WithMany(t => t.ArticleTags)
+                .HasForeignKey(at => at.TagId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         // Category configuration

@@ -11,5 +11,5 @@ public class Tag
     public DateTime CreatedAt { get; set; }
     
     // Navigation property
-    public ICollection<Article> Articles { get; set; } = new List<Article>();
+    public ICollection<ArticleTag> ArticleTags { get; set; } = new List<ArticleTag>();
 }

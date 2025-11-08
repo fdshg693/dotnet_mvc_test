@@ -12,9 +12,11 @@ public class Article
     
     public string? Summary { get; set; }
     
+    public string? Excerpt { get; set; }
+    
     public string? FeaturedImageUrl { get; set; }
     
-    public int CategoryId { get; set; }
+    public int? CategoryId { get; set; }
     
     public required string AuthorId { get; set; }
     
@@ -29,11 +31,11 @@ public class Article
     public bool IsDeleted { get; set; }
     
     // Navigation properties
-    public Category Category { get; set; } = null!;
+    public Category? Category { get; set; }
     
     public ApplicationUser Author { get; set; } = null!;
     
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     
-    public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+    public ICollection<ArticleTag> ArticleTags { get; set; } = new List<ArticleTag>();
 }
