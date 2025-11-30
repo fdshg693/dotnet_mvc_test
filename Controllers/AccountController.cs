@@ -58,8 +58,7 @@ public class AccountController : Controller
             }
             if (result.RequiresTwoFactor)
             {
-                // Not implemented yet
-                return RedirectToAction(nameof(Login));
+                return RedirectToAction("Verify", "TwoFactor", new { returnUrl = model.ReturnUrl });
             }
             if (result.IsLockedOut)
             {

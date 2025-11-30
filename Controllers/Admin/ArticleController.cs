@@ -1,3 +1,4 @@
+using dotnet_mvc_test.Filters;
 using dotnet_mvc_test.Models.Entities;
 using dotnet_mvc_test.Models.ViewModels.Admin;
 using dotnet_mvc_test.Services;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace dotnet_mvc_test.Controllers.Admin
 {
     [Authorize(Roles = "Administrator")]
+    [RequireAdminTwoFactor]
     [Area("Admin")]
     [Route("admin/articles")]
     public class ArticleController : Controller

@@ -1,6 +1,6 @@
 ---
 description: 汎用的な、多目的なタスクをこなすエージェントです。
-tools: ['edit', 'search', 'runCommands', 'usages', 'problems', 'changes', 'todos', 'runSubagent', 'fetch']
+tools: ['edit', 'search', 'runCommands', 'usages', 'problems', 'changes', 'fetch', 'todos', 'runSubagent']
 ---
 
 1. first, decide whether you should use #tool:fetch to search up-to-date information from the web

@@ -1,4 +1,5 @@
 using dotnet_mvc_test.Data;
+using dotnet_mvc_test.Filters;
 using dotnet_mvc_test.Models.ViewModels.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace dotnet_mvc_test.Controllers.Admin
 {
     [Authorize(Roles = "Administrator")]
+    [RequireAdminTwoFactor]
     [Area("Admin")]
     [Route("admin")]
     public class DashboardController : Controller
